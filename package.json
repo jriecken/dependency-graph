@@ -22,9 +22,7 @@
   "scripts": {
     "test": "jasmine-node specs"
   },
-  "dependencies": {
-    "underscore": "1.4.4"
-  },
+  "dependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
     "jasmine-node": "1.7.1"
