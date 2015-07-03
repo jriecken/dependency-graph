@@ -114,4 +114,20 @@ describe('DepGraph', function () {
     expect(graph.overallOrder(true)).toEqual(['d', 'e']);
   });
 
+  it('should still work after nodes are removed', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+
+    expect(graph.dependenciesOf('a')).toEqual(['c', 'b']);
+
+    graph.removeNode('c');
+
+    expect(graph.dependenciesOf('a')).toEqual(['b']);
+  });
+
 });
