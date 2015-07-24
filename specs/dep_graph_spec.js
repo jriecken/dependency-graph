@@ -17,6 +17,32 @@ describe('DepGraph', function () {
     expect(graph.hasNode('Bar')).toBe(false);
   });
 
+  it('should do nothing if creating a node that already exists', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+
+    graph.addDependency('a','b');
+
+    graph.addNode('a');
+
+    expect(graph.dependenciesOf('a')).toEqual(['b']);
+  });
+
+  it('should do nothing if removing a node that does not exist', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    expect(graph.hasNode('a')).toBe(true);
+
+    graph.removeNode('a');
+    expect(graph.hasNode('Foo')).toBe(false);
+
+    graph.removeNode('a');
+    expect(graph.hasNode('Foo')).toBe(false);
+  });
+
   it('should be able to add dependencies between nodes', function () {
     var graph = new DepGraph();
 
