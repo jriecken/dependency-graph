@@ -23,6 +23,8 @@ Nodes in the graph are just simple strings.
  - `dependantsOf(name, leavesOnly)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
  - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
 
+Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, an error will be thrown that includes what the cycle was in the message: e.g. `Dependency Cycle Found: a -> b -> c -> a`.
+
 ## Examples
 
     var DepGraph = require('dependency-graph').DepGraph;

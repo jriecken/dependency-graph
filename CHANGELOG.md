@@ -4,6 +4,13 @@
 
 - No changes yet
 
+## 0.4.0 (Augh 1, 2015)
+
+- Better error messages
+    - When a cycle is detected, the error message will now include the cycle in it. E.g `Dependency Cycle Found: a -> b -> c -> a` (Fixes #7)
+    - When calling `addDependency` if one of the nodes does not exist, the error will say which one it was (instead of saying that "one" of the two nodes did not exist and making you manually determine which one)
+- Calling `overallOrder` on an empty graph will no longer throw an error about a dependency cycle. It will return an empty array.
+
 ## 0.3.0 (July 24, 2015)
 
 - Fix issue where if you call `addNode` twice with the same name, it would clear all edges for that node. Now it will do nothing if a node with the specified name already exists. (Fixes #3)
