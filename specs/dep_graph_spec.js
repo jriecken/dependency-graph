@@ -63,10 +63,46 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.addDependency('a','b');
-    }).toThrow();
+    }).toThrow(new Error('Node does not exist: b'));
   });
 
   it('should detect cycles', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addNode('d');
+
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+    graph.addDependency('c', 'a');
+    graph.addDependency('d', 'a');
+
+    expect(function () {
+      graph.dependenciesOf('b');
+    }).toThrow(new Error('Dependency Cycle Found: b -> c -> a -> b'));
+  });
+
+  it('should detect cycles in overall order', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addNode('d');
+
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+    graph.addDependency('c', 'a');
+    graph.addDependency('d', 'a');
+
+    expect(function () {
+      graph.overallOrder();
+    }).toThrow(new Error('Dependency Cycle Found: d -> a -> b -> c -> a'));
+  });
+
+  it('should detect cycles in overall order when all nodes have dependants (incoming edges)', function () {
     var graph = new DepGraph();
 
     graph.addNode('a');
@@ -78,8 +114,8 @@ describe('DepGraph', function () {
     graph.addDependency('c', 'a');
 
     expect(function () {
-      graph.dependenciesOf('a');
-    }).toThrow();
+      graph.overallOrder();
+    }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
   });
 
   it('should retrieve dependencies and dependants in the correct order', function () {
@@ -138,6 +174,12 @@ describe('DepGraph', function () {
     graph.addDependency('c', 'd');
 
     expect(graph.overallOrder(true)).toEqual(['d', 'e']);
+  });
+
+  it('should give an empty overall order for an empty graph', function () {
+    var graph = new DepGraph();
+
+    expect(graph.overallOrder()).toEqual([]);
   });
 
   it('should still work after nodes are removed', function () {
