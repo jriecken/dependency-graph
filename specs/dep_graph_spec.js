@@ -118,6 +118,23 @@ describe('DepGraph', function () {
     }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
   });
 
+  it('should detect cycles in overall order when all nodes have dependants (incoming edges) but not all nodes have dependencies (outgoing edges)', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addNode('d');
+
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+    graph.addDependency('c', 'a');
+
+    expect(function () {
+      graph.overallOrder();
+    }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
+  });
+
   it('should retrieve dependencies and dependants in the correct order', function () {
     var graph = new DepGraph();
 
