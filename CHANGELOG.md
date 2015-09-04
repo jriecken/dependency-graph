@@ -4,7 +4,11 @@
 
 - No changes yet
 
-## 0.4.0 (Augh 1, 2015)
+## 0.4.1 (Sept 3, 2015)
+
+- Check all nodes for potential cycles when calculating overall order. (Fixes #8)
+
+## 0.4.0 (Aug 1, 2015)
 
 - Better error messages
     - When a cycle is detected, the error message will now include the cycle in it. E.g `Dependency Cycle Found: a -> b -> c -> a` (Fixes #7)
