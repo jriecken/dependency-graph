@@ -99,7 +99,7 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.overallOrder();
-    }).toThrow(new Error('Dependency Cycle Found: d -> a -> b -> c -> a'));
+    }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
   });
 
   it('should detect cycles in overall order when all nodes have dependants (incoming edges)', function () {
@@ -116,6 +116,26 @@ describe('DepGraph', function () {
     expect(function () {
       graph.overallOrder();
     }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
+  });
+
+  it('should detect cycles in overall order when there are several ' +
+     'disconnected subgraphs (with one that does not have a cycle', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a_1');
+    graph.addNode('a_2');
+    graph.addNode('b_1');
+    graph.addNode('b_2');
+    graph.addNode('b_3');
+
+    graph.addDependency('a_1', 'a_2');
+    graph.addDependency('b_1', 'b_2');
+    graph.addDependency('b_2', 'b_3');
+    graph.addDependency('b_3', 'b_1');
+
+    expect(function () {
+      graph.overallOrder();
+    }).toThrow(new Error('Dependency Cycle Found: b_1 -> b_2 -> b_3 -> b_1'));
   });
 
   it('should retrieve dependencies and dependants in the correct order', function () {
@@ -174,6 +194,22 @@ describe('DepGraph', function () {
     graph.addDependency('c', 'd');
 
     expect(graph.overallOrder(true)).toEqual(['d', 'e']);
+  });
+
+  it('should be able to give the overall order for a graph with several disconnected subgraphs', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a_1');
+    graph.addNode('a_2');
+    graph.addNode('b_1');
+    graph.addNode('b_2');
+    graph.addNode('b_3');
+
+    graph.addDependency('a_1', 'a_2');
+    graph.addDependency('b_1', 'b_2');
+    graph.addDependency('b_2', 'b_3');
+
+    expect(graph.overallOrder()).toEqual(['a_2', 'a_1', 'b_3', 'b_2', 'b_1']);
   });
 
   it('should give an empty overall order for an empty graph', function () {
