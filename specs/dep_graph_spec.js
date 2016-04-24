@@ -17,6 +17,71 @@ describe('DepGraph', function () {
     expect(graph.hasNode('Bar')).toBe(false);
   });
 
+  it('should treat the node data parameter as optional and use the node name as data if node data was not given', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('Foo');
+
+    expect(graph.getNodeData('Foo')).toBe('Foo');
+  });
+
+  it('should be able to associate a node name with data on node add', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('Foo', 'data');
+
+    expect(graph.getNodeData('Foo')).toBe('data');
+  });
+
+  it('should be able to add undefined as node data', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('Foo', undefined);
+
+    expect(graph.getNodeData('Foo')).toBe(undefined);
+  });
+
+  it('should return true when using hasNode with a node which has falsy data', function () {
+    var graph = new DepGraph();
+
+    var falsyData = ['', 0, null, undefined, false];
+    graph.addNode('Foo');
+
+    falsyData.forEach(function(data) {
+      graph.setNodeData('Foo', data);
+
+      expect(graph.hasNode('Foo')).toBe(true);
+
+      // Just an extra check to make sure that the saved data is correct
+      expect(graph.getNodeData('Foo')).toBe(data);
+    });
+  });
+
+  it('should be able to set data after a node was added', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('Foo', 'data');
+    graph.setNodeData('Foo', 'data2');
+
+    expect(graph.getNodeData('Foo')).toBe('data2');
+  });
+
+  it('should do nothing if we try to set data for a non-existing node', function () {
+    var graph = new DepGraph();
+
+    graph.setNodeData('Foo', 'data');
+
+    expect(graph.hasNode('Foo')).toBe(false);
+  });
+
+  it('should throw an error if the node does not exists and we try to get data', function () {
+    var graph = new DepGraph();
+
+    expect(function () {
+      graph.getNodeData('Foo');
+    }).toThrow(new Error('Node does not exist: Foo'));
+  });
+
   it('should do nothing if creating a node that already exists', function () {
     var graph = new DepGraph();
 
