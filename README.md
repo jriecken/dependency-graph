@@ -17,8 +17,8 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `addNode(name, data)` - add a node in the graph with optional data. If `data` is not given, `name` will be used as data
  - `removeNode(name)` - remove a node from the graph
  - `hasNode(name)` - check if a node exists in the graph
- - `getNodeData(name)` - get the data associated with a node (will throw an Error if the node does not exist) 
- - `setNodeData(name, data)` - set the data for an existing node. It will do nothing if the node does not exist
+ - `getNodeData(name)` - get the data associated with a node (will throw an Error if the node does not exist)
+ - `setNodeData(name, data)` - set the data for an existing node (will throw an Error if the node does not exist)
  - `addDependency(from, to)` - add a dependency between two nodes (will throw an Error if one of the nodes does not exist)
  - `removeDependency(from, to)` - remove a dependency between two nodes
  - `dependenciesOf(name, leavesOnly)` - get an array containing the nodes that the specified node depends on (transitively). If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned in the array.
@@ -45,11 +45,11 @@ Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, an
 
     graph.overallOrder(); // ['c', 'b', 'a']
     graph.overallOrder(true); // ['c']
-    
+
     graph.addNode('d', 'data');
-    
+
     graph.getNodeData('d'); // 'data'
-    
+
     graph.setNodeData('d', 'newData');
-    
+
     graph.getNodeData('d'); // 'newData'

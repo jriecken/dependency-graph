@@ -66,12 +66,12 @@ describe('DepGraph', function () {
     expect(graph.getNodeData('Foo')).toBe('data2');
   });
 
-  it('should do nothing if we try to set data for a non-existing node', function () {
+  it('should throw an error if we try to set data for a non-existing node', function () {
     var graph = new DepGraph();
 
-    graph.setNodeData('Foo', 'data');
-
-    expect(graph.hasNode('Foo')).toBe(false);
+    expect(function () {
+      graph.setNodeData('Foo', 'data');
+    }).toThrow(new Error('Node does not exist: Foo'));
   });
 
   it('should throw an error if the node does not exists and we try to get data', function () {
