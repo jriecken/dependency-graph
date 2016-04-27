@@ -2,6 +2,10 @@
 
 ## In development
 
+- Nothing yet
+
+## 0.5.0 (April 26, 2016)
+
 - Add optional data parameter for the addNode method. (Fixes #12)
 - Add methods getNodeData and setNodeData to manipulate the data associated with a node name. (Fixes #12)
 - Change the hasNode method to be able to cope with falsy node data. (Fixes #12)
