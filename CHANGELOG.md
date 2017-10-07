@@ -4,6 +4,10 @@
 
 - Nothing yet
 
+## 0.5.1 (October 7, 2017)
+
+- Now exposes Typescript type definition - thanks [vangorra](https://github.com/vangorra)!
+
 ## 0.5.0 (April 26, 2016)
 
 - Add optional data parameter for the addNode method. (Fixes #12)
