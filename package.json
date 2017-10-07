@@ -29,5 +29,6 @@
   },
   "engines": {
     "node": ">= 0.6.0"
-  }
+  },
+  "types": "./lib/index.d.ts"
 }
