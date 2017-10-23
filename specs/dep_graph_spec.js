@@ -17,6 +17,21 @@ describe('DepGraph', function () {
     expect(graph.hasNode('Bar')).toBe(false);
   });
 
+  it('should calculate its size', function () {
+    var graph = new DepGraph();
+
+    expect(graph.size()).toEqual(0);
+
+    graph.addNode('Foo');
+    graph.addNode('Bar');
+
+    expect(graph.size()).toEqual(2);
+
+    graph.removeNode('Bar');
+
+    expect(graph.size()).toEqual(1);
+  });
+
   it('should treat the node data parameter as optional and use the node name as data if node data was not given', function () {
     var graph = new DepGraph();
 
@@ -299,4 +314,59 @@ describe('DepGraph', function () {
     expect(graph.dependenciesOf('a')).toEqual(['b']);
   });
 
+  it('should clone an empty graph', function () {
+    var graph = new DepGraph();
+    expect(graph.size()).toEqual(0);
+    var cloned = graph.clone();
+    expect(cloned.size()).toEqual(0);
+
+    expect(graph === cloned).toBe(false);
+  });
+
+  it('should clone a non-empty graph', function () {
+    var graph = new DepGraph();
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+
+    var cloned = graph.clone();
+
+    expect(graph === cloned).toBe(false);
+    expect(cloned.hasNode('a')).toBe(true);
+    expect(cloned.hasNode('b')).toBe(true);
+    expect(cloned.hasNode('c')).toBe(true);
+    expect(cloned.dependenciesOf('a')).toEqual(['c', 'b']);
+    expect(cloned.dependantsOf('c')).toEqual(['a', 'b']);
+
+    // Changes to the original graph shouldn't affect the clone
+    graph.removeNode('c');
+    expect(graph.dependenciesOf('a')).toEqual(['b']);
+    expect(cloned.dependenciesOf('a')).toEqual(['c', 'b']);
+
+    graph.addNode('d');
+    graph.addDependency('b', 'd');
+    expect(graph.dependenciesOf('a')).toEqual(['d', 'b']);
+    expect(cloned.dependenciesOf('a')).toEqual(['c', 'b']);
+  });
+
+  it('should only be a shallow clone', function () {
+    var graph = new DepGraph();
+
+    var data = {a: 42};
+    graph.addNode('a', data);
+
+    var cloned = graph.clone();
+    expect(graph === cloned).toBe(false);
+    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBe(true);
+
+    graph.getNodeData('a').a = 43;
+    expect(cloned.getNodeData('a').a).toEqual(43);
+
+    cloned.setNodeData('a', {a: 42});
+    expect(cloned.getNodeData('a').a).toEqual(42);
+    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBe(false);
+  });
 });
