@@ -2,8 +2,12 @@
 
 ## In development
 
+- Nothing yet
+
+## 0.6.0 (October 22, 2017)
+
 - Add a `size` method that will return the number of nodes in the graph.
-- Add a `clone` method that will clone the graph. Any node dat will only be shallow-copied. (Fixes #14)
+- Add a `clone` method that will clone the graph. Any custom node data will only be shallow-copied. (Fixes #14)
 
 ## 0.5.2 (October 22, 2017)
 
