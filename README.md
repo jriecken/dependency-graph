@@ -17,10 +17,12 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `addNode(name, data)` - add a node in the graph with optional data. If `data` is not given, `name` will be used as data
  - `removeNode(name)` - remove a node from the graph
  - `hasNode(name)` - check if a node exists in the graph
+ - `size()` - return the number of nodes in the graph
  - `getNodeData(name)` - get the data associated with a node (will throw an Error if the node does not exist)
  - `setNodeData(name, data)` - set the data for an existing node (will throw an Error if the node does not exist)
  - `addDependency(from, to)` - add a dependency between two nodes (will throw an Error if one of the nodes does not exist)
  - `removeDependency(from, to)` - remove a dependency between two nodes
+ - `clone()`  return a clone of the graph. Any data attached to the nodes will only be *shallow-copied*
  - `dependenciesOf(name, leavesOnly)` - get an array containing the nodes that the specified node depends on (transitively). If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned in the array.
  - `dependantsOf(name, leavesOnly)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
  - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
@@ -35,6 +37,8 @@ Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, an
     graph.addNode('a');
     graph.addNode('b');
     graph.addNode('c');
+
+    graph.size() // 3
 
     graph.addDependency('a', 'b');
     graph.addDependency('b', 'c');
