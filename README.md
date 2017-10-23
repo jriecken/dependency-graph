@@ -22,7 +22,7 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `setNodeData(name, data)` - set the data for an existing node (will throw an Error if the node does not exist)
  - `addDependency(from, to)` - add a dependency between two nodes (will throw an Error if one of the nodes does not exist)
  - `removeDependency(from, to)` - remove a dependency between two nodes
- - `clone()`  return a clone of the graph. Any data attached to the nodes will only be *shallow-copied*
+ - `clone()` - return a clone of the graph. Any data attached to the nodes will only be *shallow-copied*
  - `dependenciesOf(name, leavesOnly)` - get an array containing the nodes that the specified node depends on (transitively). If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned in the array.
  - `dependantsOf(name, leavesOnly)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
  - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
