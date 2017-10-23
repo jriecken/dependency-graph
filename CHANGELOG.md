@@ -4,6 +4,10 @@
 
 - Nothing yet
 
+## 0.5.2 (October 22, 2017)
+
+- Add missing parameter in TypeScript definition. (Fixes #19)
+
 ## 0.5.1 (October 7, 2017)
 
 - Now exposes Typescript type definition - thanks [vangorra](https://github.com/vangorra)!
