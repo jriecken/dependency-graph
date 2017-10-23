@@ -1,0 +1,8 @@
+title: Dependency-graph
+description: A simple dependency graph for Node.js
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
