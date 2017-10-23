@@ -30,7 +30,7 @@ declare module 'dependency-graph' {
      * @param {string} name
      * @param data
      */
-    setNodeData(name: string, T): void;
+    setNodeData(name: string, data?: T): void;
 
     /**
      * add a dependency between two nodes (will throw an Error if one of the nodes does not exist)
