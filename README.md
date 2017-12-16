@@ -23,11 +23,11 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `addDependency(from, to)` - add a dependency between two nodes (will throw an Error if one of the nodes does not exist)
  - `removeDependency(from, to)` - remove a dependency between two nodes
  - `clone()` - return a clone of the graph. Any data attached to the nodes will only be *shallow-copied*
- - `dependenciesOf(name, leavesOnly)` - get an array containing the nodes that the specified node depends on (transitively). If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned in the array.
- - `dependantsOf(name, leavesOnly)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
- - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
+ - `dependenciesOf(name, leavesOnly, allowCycles)` - get an array containing the nodes that the specified node depends on (transitively). If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned in the array.
+ - `dependantsOf(name, leavesOnly, allowCycles)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
+ - `overallOrder(leavesOnly, allowCycles)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
 
-Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, an error will be thrown that includes what the cycle was in the message: e.g. `Dependency Cycle Found: a -> b -> c -> a`.
+Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, an error will be thrown that includes what the cycle was in the message: e.g. `Dependency Cycle Found: a -> b -> c -> a`. If you wish to silence this error, pass `true` as the value to `allowCycles` in any of these methods.
 
 ## Examples
 
