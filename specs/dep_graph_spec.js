@@ -164,7 +164,7 @@ describe('DepGraph', function () {
     }).toThrow(new Error('Dependency Cycle Found: b -> c -> a -> b'));
   });
 
-  it('should detect cycles', function () {
+  it('should allow cycles when configured', function () {
     var graph = new DepGraph({ circular: true });
 
     graph.addNode('a');
