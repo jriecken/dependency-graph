@@ -27,7 +27,7 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `dependantsOf(name, leavesOnly)` - get an array containing the nodes that depend on the specified node (transitively). If `leavesOnly` is true, only nodes that do not have any dependants will be returned in the array.
  - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
 
-Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, an error will be thrown that includes what the cycle was in the message: e.g. `Dependency Cycle Found: a -> b -> c -> a`.
+Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, an error will be thrown that includes what the cycle was in the message: e.g. `Dependency Cycle Found: a -> b -> c -> a`. If you wish to silence this error, pass `circular: true` when instantiating `DepGraph` (more below).
 
 ## Examples
 
@@ -57,3 +57,18 @@ Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, an
     graph.setNodeData('d', 'newData');
 
     graph.getNodeData('d'); // 'newData'
+
+    var circularGraph = new DepGraph({ circular: true });
+
+    circularGraph.addNode('a');
+    circularGraph.addNode('b');
+    circularGraph.addNode('c');
+    circularGraph.addNode('d');
+
+    circularGraph.addDependency('a', 'b');
+    circularGraph.addDependency('b', 'c'); // b depends on c
+    circularGraph.addDependency('c', 'a'); // c depends on a, which depends on b
+    circularGraph.addDependency('d', 'a');
+
+    circularGraph.dependenciesOf('b'); // ['a', 'c']
+    circularGraph.overallOrder(); // ['c', 'b', 'a', 'd']

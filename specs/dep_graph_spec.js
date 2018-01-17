@@ -164,6 +164,23 @@ describe('DepGraph', function () {
     }).toThrow(new Error('Dependency Cycle Found: b -> c -> a -> b'));
   });
 
+  it('should allow cycles when configured', function () {
+    var graph = new DepGraph({ circular: true });
+
+    graph.addNode('a');
+    graph.addNode('b');
+    graph.addNode('c');
+    graph.addNode('d');
+
+    graph.addDependency('a', 'b');
+    graph.addDependency('b', 'c');
+    graph.addDependency('c', 'a');
+    graph.addDependency('d', 'a');
+
+    expect(graph.dependenciesOf('b')).toEqual(['a', 'c']);
+    expect(graph.overallOrder()).toEqual(['c', 'b', 'a', 'd']);
+  });
+
   it('should detect cycles in overall order', function () {
     var graph = new DepGraph();
 
