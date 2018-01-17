@@ -4,6 +4,10 @@
 
 - Nothing yet
 
+## 0.7.0 (January 17, 2018)
+
+- Allow circular dependencies by passing in `{circular: true}` into the constructor - thanks [tbranyen](https://github.com/tbranyen)!
+
 ## 0.6.0 (October 22, 2017)
 
 - Add a `size` method that will return the number of nodes in the graph.
