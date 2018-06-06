@@ -1,5 +1,14 @@
 declare module 'dependency-graph' {
+  export interface Options {
+    circular?: boolean;
+  }
+
   export class DepGraph<T> {
+    /**
+     * Creates an instance of DepGraph with optional Options.
+     */
+    constructor(opts: Options): DepGraph;
+
     /**
      * The number of nodes in the graph.
      */
