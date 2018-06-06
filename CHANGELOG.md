@@ -4,6 +4,10 @@
 
 - Nothing yet
 
+## 0.7.1 (June 5, 2018)
+
+- Fix Typescript definition to include the new constructor arguments added in `0.7.0` - thanks [tbranyen](https://github.com/tbranyen)!
+
 ## 0.7.0 (January 17, 2018)
 
 - Allow circular dependencies by passing in `{circular: true}` into the constructor - thanks [tbranyen](https://github.com/tbranyen)!

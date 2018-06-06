@@ -7,7 +7,7 @@ declare module 'dependency-graph' {
     /**
      * Creates an instance of DepGraph with optional Options.
      */
-    constructor(opts: Options): DepGraph;
+    constructor(opts: Options);
 
     /**
      * The number of nodes in the graph.
