@@ -4,6 +4,10 @@
 
 - Nothing yet
 
+## 0.7.2 (August 30, 2018)
+
+- Make constructor parameter optional in Typescript definition. (Fixes #26)
+
 ## 0.7.1 (June 5, 2018)
 
 - Fix Typescript definition to include the new constructor arguments added in `0.7.0` - thanks [tbranyen](https://github.com/tbranyen)!
