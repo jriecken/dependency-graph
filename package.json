@@ -1,7 +1,7 @@
 {
   "name": "dependency-graph",
   "description": "Simple dependency graph.",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "author": "Jim Riecken <jriecken@gmail.com>",
   "keywords": [
     "dependency",

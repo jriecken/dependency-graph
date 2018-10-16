@@ -74,9 +74,16 @@ declare module 'dependency-graph' {
     dependenciesOf(name: string, leavesOnly?: boolean): string[];
 
     /**
-     * Get an array containing the nodes that depend on the specified node (transitively). If leavesOnly is true, only nodes that do not have any dependants will be returned in the array.
+     * Get an array containing the nodes that depend on the specified node (transitively). If leavesOnly is true, only nodes that do not have any dependents will be returned in the array.
      * @param {string} name
      * @param {boolean} leavesOnly
+     */
+    dependentsOf(name: string, leavesOnly?: boolean): string[];
+
+    /**
+     * Alias of DepGraph.dependentsOf.
+     * @param {string} name 
+     * @param {boolean} leavesOnly 
      */
     dependantsOf(name: string, leavesOnly?: boolean): string[];
 
