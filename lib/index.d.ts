@@ -86,4 +86,8 @@ declare module 'dependency-graph' {
      */
     overallOrder(leavesOnly?: boolean): string[];
   }
+
+  export class DepGraphCycleError extends Error {
+    cyclePath: string[];
+  }
 }
