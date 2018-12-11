@@ -1,8 +1,8 @@
 # Dependency Graph Changelog
 
-## In development
+## 0.8.0 (December 11, 2018)
 
-- Nothing yet
+- Add a `DepGraphCycleError` with cyclePath property - thanks [jhugman](https://github.com/jhugman)!
 
 ## 0.7.2 (August 30, 2018)
 
