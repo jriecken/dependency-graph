@@ -1,4 +1,5 @@
-var DepGraph = require('../lib/dep_graph').DepGraph;
+var dep_graph = require('../lib/dep_graph');
+var DepGraph = dep_graph.DepGraph;
 
 describe('DepGraph', function () {
 
@@ -161,7 +162,7 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.dependenciesOf('b');
-    }).toThrow(new Error('Dependency Cycle Found: b -> c -> a -> b'));
+    }).toThrow(new dep_graph.DepGraphCycleError(['b', 'c', 'a', 'b']));
   });
 
   it('should allow cycles when configured', function () {
@@ -196,7 +197,7 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.overallOrder();
-    }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
+    }).toThrow(new dep_graph.DepGraphCycleError(['a', 'b', 'c', 'a']));
   });
 
   it('should detect cycles in overall order when all nodes have dependants (incoming edges)', function () {
@@ -212,7 +213,7 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.overallOrder();
-    }).toThrow(new Error('Dependency Cycle Found: a -> b -> c -> a'));
+    }).toThrow(new dep_graph.DepGraphCycleError(['a', 'b', 'c', 'a']));
   });
 
   it('should detect cycles in overall order when there are several ' +
@@ -232,7 +233,7 @@ describe('DepGraph', function () {
 
     expect(function () {
       graph.overallOrder();
-    }).toThrow(new Error('Dependency Cycle Found: b_1 -> b_2 -> b_3 -> b_1'));
+    }).toThrow(new dep_graph.DepGraphCycleError(['b_1', 'b_2', 'b_3', 'b_1']));
   });
 
   it('should retrieve dependencies and dependants in the correct order', function () {
@@ -385,5 +386,26 @@ describe('DepGraph', function () {
     cloned.setNodeData('a', {a: 42});
     expect(cloned.getNodeData('a').a).toEqual(42);
     expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBe(false);
+  });
+});
+
+describe('DepGraphCycleError', function() {
+  var DepGraphCycleError = dep_graph.DepGraphCycleError;
+  
+  it('should have a message', function() {
+    var err = new DepGraphCycleError(['a', 'b', 'c', 'a']);
+    expect(err.message).toEqual('Dependency Cycle Found: a -> b -> c -> a');
+  });
+
+  it('should be an instanceof DepGraphCycleError', function() {
+    var err = new DepGraphCycleError(['a', 'b', 'c', 'a']);
+    expect(err instanceof DepGraphCycleError).toBe(true);
+    expect(err instanceof Error).toBe(true);
+  });
+
+  it('should have a cyclePath', function() {
+    var cyclePath = ['a', 'b', 'c', 'a'];
+    var err = new DepGraphCycleError(cyclePath);
+    expect(err.cyclePath).toEqual(cyclePath);
   });
 });
