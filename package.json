@@ -20,12 +20,12 @@
   },
   "main": "./lib/dep_graph.js",
   "scripts": {
-    "test": "jasmine-node specs"
+    "test": "jasmine specs/**/*.js"
   },
   "dependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
-    "jasmine-node": "2.0.1"
+    "jasmine": "3.5.0"
   },
   "engines": {
     "node": ">= 0.6.0"
