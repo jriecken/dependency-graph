@@ -9,28 +9,28 @@ describe('DepGraph', function () {
     graph.addNode('Foo');
     graph.addNode('Bar');
 
-    expect(graph.hasNode('Foo')).toBe(true);
-    expect(graph.hasNode('Bar')).toBe(true);
-    expect(graph.hasNode('NotThere')).toBe(false);
+    expect(graph.hasNode('Foo')).toBeTrue();
+    expect(graph.hasNode('Bar')).toBeTrue();
+    expect(graph.hasNode('NotThere')).toBeFalse();
 
     graph.removeNode('Bar');
 
-    expect(graph.hasNode('Bar')).toBe(false);
+    expect(graph.hasNode('Bar')).toBeFalse();
   });
 
   it('should calculate its size', function () {
     var graph = new DepGraph();
 
-    expect(graph.size()).toEqual(0);
+    expect(graph.size()).toBe(0);
 
     graph.addNode('Foo');
     graph.addNode('Bar');
 
-    expect(graph.size()).toEqual(2);
+    expect(graph.size()).toBe(2);
 
     graph.removeNode('Bar');
 
-    expect(graph.size()).toEqual(1);
+    expect(graph.size()).toBe(1);
   });
 
   it('should treat the node data parameter as optional and use the node name as data if node data was not given', function () {
@@ -54,7 +54,7 @@ describe('DepGraph', function () {
 
     graph.addNode('Foo', undefined);
 
-    expect(graph.getNodeData('Foo')).toBe(undefined);
+    expect(graph.getNodeData('Foo')).toBeUndefined();
   });
 
   it('should return true when using hasNode with a node which has falsy data', function () {
@@ -66,7 +66,7 @@ describe('DepGraph', function () {
     falsyData.forEach(function(data) {
       graph.setNodeData('Foo', data);
 
-      expect(graph.hasNode('Foo')).toBe(true);
+      expect(graph.hasNode('Foo')).toBeTrue();
 
       // Just an extra check to make sure that the saved data is correct
       expect(graph.getNodeData('Foo')).toBe(data);
@@ -115,13 +115,13 @@ describe('DepGraph', function () {
     var graph = new DepGraph();
 
     graph.addNode('a');
-    expect(graph.hasNode('a')).toBe(true);
+    expect(graph.hasNode('a')).toBeTrue();
 
     graph.removeNode('a');
-    expect(graph.hasNode('Foo')).toBe(false);
+    expect(graph.hasNode('Foo')).toBeFalse();
 
     graph.removeNode('a');
-    expect(graph.hasNode('Foo')).toBe(false);
+    expect(graph.hasNode('Foo')).toBeFalse();
   });
 
   it('should be able to add dependencies between nodes', function () {
@@ -338,7 +338,7 @@ describe('DepGraph', function () {
     var cloned = graph.clone();
     expect(cloned.size()).toEqual(0);
 
-    expect(graph === cloned).toBe(false);
+    expect(graph === cloned).toBeFalse();
   });
 
   it('should clone a non-empty graph', function () {
@@ -352,10 +352,10 @@ describe('DepGraph', function () {
 
     var cloned = graph.clone();
 
-    expect(graph === cloned).toBe(false);
-    expect(cloned.hasNode('a')).toBe(true);
-    expect(cloned.hasNode('b')).toBe(true);
-    expect(cloned.hasNode('c')).toBe(true);
+    expect(graph === cloned).toBeFalse();
+    expect(cloned.hasNode('a')).toBeTrue();
+    expect(cloned.hasNode('b')).toBeTrue();
+    expect(cloned.hasNode('c')).toBeTrue();
     expect(cloned.dependenciesOf('a')).toEqual(['c', 'b']);
     expect(cloned.dependantsOf('c')).toEqual(['a', 'b']);
 
@@ -377,15 +377,15 @@ describe('DepGraph', function () {
     graph.addNode('a', data);
 
     var cloned = graph.clone();
-    expect(graph === cloned).toBe(false);
-    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBe(true);
+    expect(graph === cloned).toBeFalse();
+    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBeTrue();
 
     graph.getNodeData('a').a = 43;
-    expect(cloned.getNodeData('a').a).toEqual(43);
+    expect(cloned.getNodeData('a').a).toBe(43);
 
     cloned.setNodeData('a', {a: 42});
-    expect(cloned.getNodeData('a').a).toEqual(42);
-    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBe(false);
+    expect(cloned.getNodeData('a').a).toBe(42);
+    expect(graph.getNodeData('a') === cloned.getNodeData('a')).toBeFalse();
   });
 });
 
@@ -399,8 +399,8 @@ describe('DepGraphCycleError', function() {
 
   it('should be an instanceof DepGraphCycleError', function() {
     var err = new DepGraphCycleError(['a', 'b', 'c', 'a']);
-    expect(err instanceof DepGraphCycleError).toBe(true);
-    expect(err instanceof Error).toBe(true);
+    expect(err instanceof DepGraphCycleError).toBeTrue();
+    expect(err instanceof Error).toBeTrue();
   });
 
   it('should have a cyclePath', function() {
