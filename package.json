@@ -1,16 +1,13 @@
 {
   "name": "dependency-graph",
   "description": "Simple dependency graph.",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "author": "Jim Riecken <jriecken@gmail.com>",
   "keywords": [
     "dependency",
     "graph"
   ],
-  "license": {
-    "type": "MIT",
-    "url": "http://github.com/jriecken/dependency-graph/raw/master/LICENSE"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/jriecken/dependency-graph.git"

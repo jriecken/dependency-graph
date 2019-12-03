@@ -1,5 +1,9 @@
 # Dependency Graph Changelog
 
+## 0.8.1 (December 3, 2019)
+
+- Ensure all nodes are included in overallOrder when cycles are allowed. (Fixes #33)
+
 ## 0.8.0 (December 11, 2018)
 
 - Add a `DepGraphCycleError` with cyclePath property - thanks [jhugman](https://github.com/jhugman)!
