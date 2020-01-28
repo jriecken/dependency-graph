@@ -1,19 +1,20 @@
 {
-  "name": "dependency-graph",
+  "name": "fast-dependency-graph",
   "description": "Simple dependency graph.",
-  "version": "0.8.1",
-  "author": "Jim Riecken <jriecken@gmail.com>",
+  "version": "0.8.2",
+  "author": "Will Tennien",
   "keywords": [
+    "fast",
     "dependency",
     "graph"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jriecken/dependency-graph.git"
+    "url": "git://github.com/willtennien/dependency-graph.git"
   },
   "bugs": {
-    "url": "http://github.com/jriecken/dependency-graph/issues"
+    "url": "http://github.com/willtennien/dependency-graph/issues"
   },
   "main": "./lib/dep_graph.js",
   "scripts": {
