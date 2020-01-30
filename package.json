@@ -1,7 +1,7 @@
 {
   "name": "fast-dependency-graph",
   "description": "Simple dependency graph.",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "author": "Will Tennien",
   "keywords": [
     "fast",
