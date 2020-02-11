@@ -1,5 +1,11 @@
 # Dependency Graph Changelog
 
+## 0.9.0 (February 10, 2020)
+
+- Rewrite the topological sort DFS to be more efficient (and work!) on large graphs.
+  - No longer uses recursion to avoid stack overflows with large/deep graphs
+  - No longer is accidentally `O(N^2)` (thanks [willtennien](https://github.com/willtennien) for pointing this out!)
+
 ## 0.8.1 (December 3, 2019)
 
 - Ensure all nodes are included in overallOrder when cycles are allowed. (Fixes #33)
