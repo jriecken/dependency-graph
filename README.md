@@ -52,6 +52,7 @@ Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, an
 
     graph.overallOrder(); // ['c', 'b', 'a']
     graph.overallOrder(true); // ['c']
+    graph.entryNodes(); // ['a']
 
     graph.addNode('d', 'data');
 
