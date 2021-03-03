@@ -110,6 +110,11 @@ declare module 'dependency-graph' {
     dependentsOf(name: string, leavesOnly?: boolean): string[];
 
     /**
+     * Get an array containing the nodes that don't have any depedencies.
+     */
+    entryNodes(): string[];
+
+    /**
      * Construct the overall processing order for the dependency graph. If leavesOnly is true, only nodes that do not depend on any other nodes will be returned.
      * @param {boolean} leavesOnly
      */

@@ -136,6 +136,19 @@ describe("DepGraph", function () {
     expect(graph.dependenciesOf("a")).toEqual(["b", "c"]);
   });
 
+  it("should find entry nodes", function () {
+    var graph = new DepGraph();
+
+    graph.addNode("a");
+    graph.addNode("b");
+    graph.addNode("c");
+
+    graph.addDependency("a", "b");
+    graph.addDependency("a", "c");
+
+    expect(graph.entryNodes()).toEqual(["a"]);
+  });
+
   it("should throw an error if a node does not exist and a dependency is added", function () {
     var graph = new DepGraph();
 
