@@ -28,7 +28,7 @@ Nodes in the graph are just simple strings with optional data associated with th
  - `directDependenciesOf(name)` - get an array containing the direct dependencies of the specified node
  - `directDependantsOf(name)` (aliased as `directDependentsOf`) - get an array containing the nodes that directly depend on the specified node
  - `overallOrder(leavesOnly)` - construct the overall processing order for the dependency graph. If `leavesOnly` is true, only nodes that do not depend on any other nodes will be returned.
- - `entryNodes()` - get an array containing the nodes that don't have any depedencies.
+ - `entryNodes()` - array of nodes that have no dependants (i.e. nothing depends on them).
 
 Dependency Cycles are detected when running `dependenciesOf`, `dependantsOf`, and `overallOrder` and if one is found, a `DepGraphCycleError` will be thrown that includes what the cycle was in the message as well as the `cyclePath` property: e.g. `Dependency Cycle Found: a -> b -> c -> a`. If you wish to silence this error, pass `circular: true` when instantiating `DepGraph` (more below).
 

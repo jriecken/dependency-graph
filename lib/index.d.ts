@@ -110,7 +110,7 @@ declare module 'dependency-graph' {
     dependentsOf(name: string, leavesOnly?: boolean): string[];
 
     /**
-     * Get an array containing the nodes that don't have any depedencies.
+     * Get an array of nodes that have no dependants (i.e. nothing depends on them).
      */
     entryNodes(): string[];
 
