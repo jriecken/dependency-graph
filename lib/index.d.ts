@@ -101,7 +101,7 @@ declare module 'dependency-graph' {
     dependantsOf(name: string, leavesOnly?: boolean): string[];
 
     /**
-     * Alias of `dependentsOf`
+     * Alias of `dependantsOf`
      *
      * @see dependantsOf
      * @param name
