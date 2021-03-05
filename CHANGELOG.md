@@ -1,5 +1,9 @@
 # Dependency Graph Changelog
 
+## 0.11.0 (March 5, 2021)
+
+- Add `entryNodes` method that returns the nodes that nothing depends on - thanks [amcdnl](https://github.com/amcdnl)!
+
 ## 0.10.0 (January 9, 2021)
 
 - Add `directDependenciesOf` and `directDependantsOf` methods for retrieving direct dependency information. (Fixes #40)
