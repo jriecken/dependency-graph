@@ -382,6 +382,18 @@ describe("DepGraph", function() {
     expect(graph === cloned).toBeFalse();
   });
 
+  it("should preserve the circular property on clone", function() {
+    var graph = new DepGraph({ circular: true });
+    expect(graph.circular).toBeTrue();
+    var cloned = graph.clone();
+    expect(cloned.circular).toBeTrue();
+
+    var graph2 = new DepGraph({ circular: false });
+    expect(graph2.circular).toBeFalse();
+    var cloned2 = graph2.clone();
+    expect(cloned2.circular).toBeFalse();
+  });
+
   it("should clone a non-empty graph", function() {
     var graph = new DepGraph();
 
