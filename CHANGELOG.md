@@ -1,5 +1,14 @@
 # Dependency Graph Changelog
 
+## 0.11.0 (March 5, 2021)
+
+- Add `entryNodes` method that returns the nodes that nothing depends on - thanks [amcdnl](https://github.com/amcdnl)!
+
+## 0.10.0 (January 9, 2021)
+
+- Add `directDependenciesOf` and `directDependantsOf` methods for retrieving direct dependency information. (Fixes #40)
+- Add aliases `dependentsOf` and `directDependentsOf`.
+
 ## 0.9.0 (February 10, 2020)
 
 - Rewrite the topological sort DFS to be more efficient (and work!) on large graphs.
