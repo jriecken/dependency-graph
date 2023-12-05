@@ -22,10 +22,10 @@
   "dependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
-    "jasmine": "3.5.0"
+    "jasmine": "5.1.0"
   },
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">=4"
   },
   "types": "./lib/index.d.ts"
 }
