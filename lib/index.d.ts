@@ -3,7 +3,10 @@ declare module 'dependency-graph' {
     circular?: boolean;
   }
 
-  export class DepGraph<T> {
+  /**
+   * @template K
+   */
+  export class DepGraph<T, K = string> {
     /**
      * Creates an instance of DepGraph with optional Options.
      */
@@ -16,49 +19,49 @@ declare module 'dependency-graph' {
 
     /**
      * Add a node in the graph with optional data. If data is not given, name will be used as data.
-     * @param {string} name
+     * @param {K} name
      * @param data
      */
-    addNode(name: string, data?: T): void;
+    addNode(name: K, data?: T): void;
 
     /**
      * Remove a node from the graph.
-     * @param {string} name
+     * @param {K} name
      */
-    removeNode(name: string): void;
+    removeNode(name: K): void;
 
     /**
      * Check if a node exists in the graph.
-     * @param {string} name
+     * @param {K} name
      */
-    hasNode(name: string): boolean;
+    hasNode(name: K): boolean;
 
     /**
      * Get the data associated with a node (will throw an Error if the node does not exist).
-     * @param {string} name
+     * @param {K} name
      */
-    getNodeData(name: string): T;
+    getNodeData(name: K): T;
 
     /**
      * Set the data for an existing node (will throw an Error if the node does not exist).
-     * @param {string} name
+     * @param {K} name
      * @param data
      */
-    setNodeData(name: string, data?: T): void;
+    setNodeData(name: K, data?: T): void;
 
     /**
      * Add a dependency between two nodes (will throw an Error if one of the nodes does not exist).
-     * @param {string} from
-     * @param {string} to
+     * @param {K} from
+     * @param {K} to
      */
-    addDependency(from: string, to: string): void;
+    addDependency(from: K, to: K): void;
 
     /**
      * Remove a dependency between two nodes.
-     * @param {string} from
-     * @param {string} to
+     * @param {K} from
+     * @param {K} to
      */
-    removeDependency(from: string, to: string): void;
+    removeDependency(from: K, to: K): void;
 
     /**
      * Return a clone of the dependency graph (If any custom data is attached
@@ -70,35 +73,35 @@ declare module 'dependency-graph' {
      * Get an array containing the direct dependency nodes of the specified node.
      * @param name
      */
-    directDependenciesOf(name: string): string[];
+    directDependenciesOf(name: K): K[];
 
     /**
      * Get an array containing the nodes that directly depend on the specified node.
      * @param name
      */
-    directDependantsOf(name: string): string[];
+    directDependantsOf(name: K): K[];
 
     /**
      * Alias of `directDependantsOf`
      *
      * @see directDependantsOf
-     * @param {string} name
+     * @param {K} name
      */
-    directDependentsOf(name: string): string[];
+    directDependentsOf(name: K): K[];
 
     /**
      * Get an array containing the nodes that the specified node depends on (transitively). If leavesOnly is true, only nodes that do not depend on any other nodes will be returned in the array.
-     * @param {string} name
+     * @param {K} name
      * @param {boolean} leavesOnly
      */
-    dependenciesOf(name: string, leavesOnly?: boolean): string[];
+    dependenciesOf(name: K, leavesOnly?: boolean): K[];
 
     /**
      * Get an array containing the nodes that depend on the specified node (transitively). If leavesOnly is true, only nodes that do not have any dependants will be returned in the array.
-     * @param {string} name
+     * @param {K} name
      * @param {boolean} leavesOnly
      */
-    dependantsOf(name: string, leavesOnly?: boolean): string[];
+    dependantsOf(name: K, leavesOnly?: boolean): K[];
 
     /**
      * Alias of `dependantsOf`
@@ -107,21 +110,21 @@ declare module 'dependency-graph' {
      * @param name
      * @param leavesOnly
      */
-    dependentsOf(name: string, leavesOnly?: boolean): string[];
+    dependentsOf(name: K, leavesOnly?: boolean): K[];
 
     /**
      * Get an array of nodes that have no dependants (i.e. nothing depends on them).
      */
-    entryNodes(): string[];
+    entryNodes(): K[];
 
     /**
      * Construct the overall processing order for the dependency graph. If leavesOnly is true, only nodes that do not depend on any other nodes will be returned.
      * @param {boolean} leavesOnly
      */
-    overallOrder(leavesOnly?: boolean): string[];
+    overallOrder(leavesOnly?: boolean): K[];
   }
 
-  export class DepGraphCycleError extends Error {
-    cyclePath: string[];
+  export class DepGraphCycleError<K = string> extends Error {
+    cyclePath: K[];
   }
 }

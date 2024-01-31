@@ -30,6 +30,60 @@ describe("DepGraph", function () {
     expect(graph.overallOrder()).toEqual(["__proto__", "constructor"]);
   });
 
+  it("should work with using any types as names", function () {
+    var graph = new DepGraph();
+
+    var stringType = "";
+    var numberType = 0;
+    var bigintType = BigInt("9007199254740992");
+    var booleanType = false;
+    var undefinedType = undefined;
+    var nullType = null;
+    var symbolType = Symbol();
+    var objectType = {};
+    var functionType = function x() {};
+
+    graph.addNode(stringType);
+    graph.addNode(numberType);
+    graph.addNode(bigintType);
+    graph.addNode(booleanType);
+    graph.addNode(undefinedType);
+    graph.addNode(nullType);
+    graph.addNode(symbolType);
+    graph.addNode(objectType);
+    graph.addNode(functionType);
+
+    graph.addDependency(stringType, numberType);
+    graph.addDependency(numberType, bigintType);
+    graph.addDependency(bigintType, booleanType);
+    graph.addDependency(booleanType, undefinedType);
+    graph.addDependency(undefinedType, nullType);
+    graph.addDependency(nullType, symbolType);
+    graph.addDependency(symbolType, objectType);
+    graph.addDependency(objectType, functionType);
+
+    expect(graph.hasNode(stringType)).toBeTrue();
+    expect(graph.hasNode(numberType)).toBeTrue();
+    expect(graph.hasNode(bigintType)).toBeTrue();
+    expect(graph.hasNode(booleanType)).toBeTrue();
+    expect(graph.hasNode(undefinedType)).toBeTrue();
+    expect(graph.hasNode(nullType)).toBeTrue();
+    expect(graph.hasNode(symbolType)).toBeTrue();
+    expect(graph.hasNode(objectType)).toBeTrue();
+    expect(graph.hasNode(functionType)).toBeTrue();
+    expect(graph.overallOrder()).toEqual([
+      functionType,
+      objectType,
+      symbolType,
+      nullType,
+      undefinedType,
+      booleanType,
+      bigintType,
+      numberType,
+      stringType
+    ]);
+  });
+
   it("should calculate its size", function () {
     var graph = new DepGraph();
 
@@ -551,6 +605,31 @@ describe("DepGraphCycleError", function () {
   it("should have a message", function () {
     var err = new DepGraphCycleError(["a", "b", "c", "a"]);
     expect(err.message).toEqual("Dependency Cycle Found: a -> b -> c -> a");
+  });
+
+  it("should have a message when using special types as names", function () {
+    var stringType = "string";
+    var numberType = 0;
+    var bigintType = BigInt("9007199254740992");
+    var booleanType = false;
+    var undefinedType = undefined;
+    var nullType = null;
+    var symbolType = Symbol();
+    var objectType = {};
+    var functionType = function x() {};
+    var err = new DepGraphCycleError([
+      stringType,
+      numberType,
+      bigintType,
+      booleanType,
+      undefinedType,
+      nullType,
+      symbolType,
+      objectType,
+      functionType
+    ]);
+
+    expect(err.message).toEqual("Dependency Cycle Found: string -> 0 -> 9007199254740992 -> false -> undefined -> null -> Symbol() -> [object Object] -> x");
   });
 
   it("should be an instanceof DepGraphCycleError", function () {
