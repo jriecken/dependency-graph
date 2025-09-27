@@ -541,7 +541,20 @@ describe("DepGraph Performance", function () {
     var start = new Date().getTime();
     g.overallOrder();
     var end = new Date().getTime();
-    expect(start - end).toBeLessThan(1000);
+    expect(end - start).toBeLessThan(1000);
+  });
+
+  it("should construct very large graph with high-degree node in a reasonable amount of time", function () {
+    var start = new Date().getTime();
+    var g = new DepGraph();
+    // Create a graph with 100000 nodes, all depending on the same hub
+    g.addNode("hub");
+    for (var i = 0; i < 100000; i++) {
+      g.addNode(i.toString());
+      g.addDependency(i.toString(), "hub");
+    }
+    var end = new Date().getTime();
+    expect(end - start).toBeLessThan(1000);
   });
 });
 
